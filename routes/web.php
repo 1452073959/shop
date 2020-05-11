@@ -106,3 +106,4 @@ Route::get('alipay', function() {
 
 
 
+Route::get('cache', 'PaymentController@cache');

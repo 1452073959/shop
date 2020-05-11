@@ -10,6 +10,7 @@ use App\Exceptions\InvalidRequestException;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 use App\Models\Installment;
+use Illuminate\Support\Facades\Cache;
 class PaymentController extends Controller
 {
     //
@@ -46,6 +47,7 @@ class PaymentController extends Controller
     {
         // 校验输入参数
         $data  = app('alipay')->verify();
+        Cache::put('key', $data);
         // 如果订单状态不是成功或者结束，则不走后续的逻辑
         // 所有校验状态：https://docs.open.alipay.com/59/103672
         if(!in_array($data->trade_status, ['TRADE_SUCCESS', 'TRADE_FINISHED'])) {
@@ -53,6 +55,8 @@ class PaymentController extends Controller
         }
         // $data->out_trade_no 拿到订单流水号，并在数据库中查询
         $order = Order::where('no', $data->out_trade_no)->first();
+
+        Cache::put('key1', 1111111111);
         // 正常来说不太可能出现支付了一笔不存在的订单，这个判断只是加强系统健壮性。
         if (!$order) {
             return 'fail';
@@ -218,6 +222,18 @@ class PaymentController extends Controller
 
         return $installment;
     }
+
+
+
+
+    public function cache()
+    {
+        $value = Cache::get('key');
+        $value1 = Cache::get('key1');
+        dump($value);
+        dump($value1);
+    }
+
 
 
 }
