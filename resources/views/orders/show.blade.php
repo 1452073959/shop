@@ -86,7 +86,7 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="order-summary text-right">\
+                        <div class="order-summary text-right">
 
                             <!-- 展示优惠信息开始 -->
                             @if($order->couponCode)
@@ -94,7 +94,7 @@
                                     <span>优惠信息：</span>
                                     <div class="value">{{ $order->couponCode->description }}</div>
                                 </div>
-                        @endif
+                             @endif
                         <!-- 展示优惠信息结束 -->
 
                             <div class="total-amount">
@@ -154,7 +154,7 @@
                                         <!-- 仅当订单总金额大等于分期最低金额时才展示分期按钮 -->
                                         @if ($order->total_amount >= config('app.min_installment_amount'))
                                             <button class="btn btn-sm btn-danger" id='btn-installment'>分期付款</button>
-                                        @endif
+                                    @endif
                                     <!-- 分期支付按钮结束 -->
 
                                     </div>
@@ -195,7 +195,9 @@
                                 <td>{{ $count }}期</td>
                                 <td>{{ $rate }}%</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary btn-select-installment" data-count="{{ $count }}">选择</button>
+                                    <button class="btn btn-sm btn-primary btn-select-installment"
+                                            data-count="{{ $count }}">选择
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -285,7 +287,7 @@
 
             // 选择分期期数按钮点击事件
             $('.btn-select-installment').click(function () {
-                axios.post('{{ route('payment.installment', ['order' => $order->id]) }}', { count: $(this).data('count') })
+                axios.post('{{ route('payment.installment', ['order' => $order->id]) }}', {count: $(this).data('count')})
                     .then(function (response) {
                         location.href = '/installments/' + response.data.id;
                     })
