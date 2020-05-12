@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Exceptions\InvalidRequestException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Http\Requests\Admin\HandleRefundRequest;
+use App\Services\OrderService;
 class OrdersController extends AdminController
 {
     use  ValidatesRequests;
@@ -128,7 +129,7 @@ class OrdersController extends AdminController
     }
 
     //同意退款
-    protected function _refundOrder(Order $order)
+/*    protected function _refundOrder(Order $order)
     {
         // 判断该订单的支付方式
         switch ($order->payment_method) {
@@ -182,5 +183,5 @@ class OrdersController extends AdminController
                 throw new InternalException('未知订单支付方式：' . $order->payment_method);
                 break;
         }
-    }
+    }*/
 }
