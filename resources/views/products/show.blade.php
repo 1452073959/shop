@@ -110,7 +110,20 @@
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="product-detail-tab">
-                                {!! $product->description !!}
+                                <!-- 产品属性开始 -->
+                                <div class="properties-list">
+                                    <div class="properties-list-title">产品参数：</div>
+                                    <ul class="properties-list-body">
+                                        @foreach($product->properties as $property)
+                                            <li>{{ $property->name }}：{{ $property->value }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <!-- 产品属性结束 -->
+                                <!-- 在商品描述外面包了一层 div -->
+                                <div class="product-description">
+                                    {!! $product->description !!}
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="product-reviews-tab">
 
