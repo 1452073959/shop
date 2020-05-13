@@ -52,7 +52,7 @@ class Product extends Model
     }
 
 //    ___--------------------------
-//商品属性
+//商品属性1111
     public function properties()
     {
         return $this->hasMany(ProductProperty::class);
